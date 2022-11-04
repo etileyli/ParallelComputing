@@ -3,14 +3,14 @@
 using namespace std;
 
 // maximum size of matrix
-#define MAX 4
+#define MAX 32
 
 // maximum number of threads
-#define MAX_THREAD 4
+#define MAX_THREAD 1
 
 int matA[MAX][MAX];
-int matB[MAX][MAX];
-int matC[MAX][MAX];
+int matB[MAX][1];
+int matC[MAX][1];
 int step_i = 0;
 
 void* multi(void* arg)
@@ -28,8 +28,14 @@ int main()
 	// Generating random values in matA and matB
 	for (int i = 0; i < MAX; i++) {
 		for (int j = 0; j < MAX; j++) {
-			matA[i][j] = rand() % 10;
-			matB[i][j] = rand() % 10;
+			matA[i][j] = rand() % 11;
+		}
+	}
+
+	// Generating random values in matA and matB
+	for (int i = 0; i < MAX; i++) {
+		for (int j = 0; j < 1; j++) {
+			matB[i][j] = rand() % 11;
 		}
 	}
 
@@ -44,7 +50,7 @@ int main()
 	// Displaying matB
 	cout << endl << "Matrix B" << endl;
 	for (int i = 0; i < MAX; i++) {
-		for (int j = 0; j < MAX; j++)
+		for (int j = 0; j < 1; j++)
 			cout << matB[i][j] << " ";
 		cout << endl;
 	}
@@ -65,7 +71,7 @@ int main()
 	// Displaying the result matrix
 	cout << endl << "Multiplication of A and B" << endl;
 	for (int i = 0; i < MAX; i++) {
-		for (int j = 0; j < MAX; j++)
+		for (int j = 0; j < 1; j++)
 			cout << matC[i][j] << " ";
 		cout << endl;
 	}
