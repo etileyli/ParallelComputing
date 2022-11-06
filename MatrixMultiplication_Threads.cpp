@@ -16,17 +16,13 @@ int thread_no = 0;
 
 void* multi(void* arg)
 {
-	// int i = row_no++; // row_no is currently processed row of matC
 	int thrd_no = thread_no++;
-	for(int j = 0; j < (MAX/MAX_THREAD); j++){
-		int i = row_no++; // row_no is currently processed row of matC
-
+	for (int j = 0; j < (MAX/MAX_THREAD); j++){
 		for (int k = 0; k < MAX; k++){
-			// cout << "matA[j][k] " << matA[j][k]<< " matB[k][0] " << matB[k][0] << endl;
-			matC[i][0] += matA[i][k] * matB[k][0];
-			// cout << "matC[" << j << "][0] = "	<< matC[j][0] << endl;
+			// cout << "matA[" << thrd_no * MAX/MAX_THREAD + j << "]["<< k << "] " << matA[thrd_no * MAX/MAX_THREAD + j][k]<< " matB[" << k <<"][0] " << matB[k][0] << endl;
+			matC[thrd_no * MAX/MAX_THREAD + j][0] += matA[thrd_no * MAX/MAX_THREAD + j][j] * matB[k][0];
 		}
-		cout << "thread no: "<< thrd_no << " matC[" << i << "][0] = "	<< matC[i][0] << endl;
+		cout << "thread no: "<< thrd_no << " matC[" << thrd_no * MAX/MAX_THREAD + j << "][0] = "	<< matC[thrd_no * MAX/MAX_THREAD + j][0] << endl;
 	}
 }
 
