@@ -3,28 +3,26 @@
 using namespace std;
 
 // maximum size of matrix
-#define MAX 5
+#define MAX 32
 
-// maximum number of threads
-#define MAX_THREAD 1
+// Number of threads
+#define MAX_THREAD 5
 
 int matA[MAX][MAX];
 int matB[MAX][1];
 int matC[MAX][1];
-int step_i = 0;
+int row_no = 0;
 
 void* multi(void* arg)
 {
-	// int i = step_i++; //i denotes row number of resultant matC
+	int i = row_no++; // row_no is currently processed row of matC
 
-	for (int j = 0; j < MAX; j++){
-  	for (int k = 0; k < MAX; k++){
-			// cout << "matA[j][k] " << matA[j][k]<< " matB[k][0] " << matB[k][0] << endl;
-			matC[j][0] += matA[j][k] * matB[k][0];
-			// cout << "matC[" << j << "][0] = "	<< matC[j][0] << endl;
-		}
-		cout << "matC[" << j << "][0] = "	<< matC[j][0] << endl;
+	for (int k = 0; k < MAX; k++){
+		// cout << "matA[j][k] " << matA[j][k]<< " matB[k][0] " << matB[k][0] << endl;
+		matC[i][0] += matA[j][k] * matB[k][0];
+		// cout << "matC[" << j << "][0] = "	<< matC[j][0] << endl;
 	}
+	cout << "matC[" << j << "][0] = "	<< matC[j][0] << endl;
 }
 
 // Driver Code
@@ -61,10 +59,10 @@ int main()
 		cout << endl;
 	}
 
-	// declaring four threads
+	// declaring threads array
 	pthread_t threads[MAX_THREAD];
 
-	// Creating four threads, each evaluating its own part
+	// Creating threads, each evaluating its own part
 	for (int i = 0; i < MAX_THREAD; i++) {
 		int* p;
 		pthread_create(&threads[i], NULL, multi, (void*)(p));
