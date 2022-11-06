@@ -3,7 +3,7 @@
 using namespace std;
 
 // maximum size of matrix
-#define MAX 32
+#define MAX 5
 
 // maximum number of threads
 #define MAX_THREAD 1
@@ -15,27 +15,33 @@ int step_i = 0;
 
 void* multi(void* arg)
 {
-	int i = step_i++; //i denotes row number of resultant matC
+	// int i = step_i++; //i denotes row number of resultant matC
 
-	for (int j = 0; j < MAX; j++)
-  	for (int k = 0; k < MAX; k++)
-  		matC[i][j] += matA[i][k] * matB[k][j];
+	for (int j = 0; j < MAX; j++){
+  	for (int k = 0; k < MAX; k++){
+			// cout << "matA[j][k] " << matA[j][k]<< " matB[k][0] " << matB[k][0] << endl;
+			matC[j][0] += matA[j][k] * matB[k][0];
+			// cout << "matC[" << j << "][0] = "	<< matC[j][0] << endl;
+		}
+		cout << "matC[" << j << "][0] = "	<< matC[j][0] << endl;
+	}
 }
 
 // Driver Code
 int main()
 {
+
 	// Generating random values in matA and matB
 	for (int i = 0; i < MAX; i++) {
 		for (int j = 0; j < MAX; j++) {
-			matA[i][j] = rand() % 11;
+			matA[i][j] = rand() % 10;
 		}
 	}
 
 	// Generating random values in matA and matB
 	for (int i = 0; i < MAX; i++) {
 		for (int j = 0; j < 1; j++) {
-			matB[i][j] = rand() % 11;
+			matB[i][j] = rand() % 10;
 		}
 	}
 
