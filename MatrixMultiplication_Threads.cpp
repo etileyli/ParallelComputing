@@ -1,17 +1,17 @@
 // CPP Program to multiply two matrix using pthreads
 #include <bits/stdc++.h>
+#include <ctime>
 using namespace std;
 
 // maximum size of matrix
 #define MAX 32
 
 // Number of threads
-#define MAX_THREAD 32
+#define MAX_THREAD 1
 
 int matA[MAX][MAX];
 int matB[MAX][1];
 int matC[MAX][1];
-int row_no = 0;
 int thread_no = 0;
 
 void* multi(void* arg)
@@ -28,7 +28,6 @@ void* multi(void* arg)
 // Driver Code
 int main()
 {
-
 	// Generating random values in matA and matB
 	for (int i = 0; i < MAX; i++) {
 		for (int j = 0; j < MAX; j++) {
@@ -44,23 +43,25 @@ int main()
 	}
 
 	// Displaying matA
-	cout << endl << "Matrix A" << endl;
-	for (int i = 0; i < MAX; i++) {
-		for (int j = 0; j < MAX; j++)
-			cout << matA[i][j] << " ";
-		cout << endl;
-	}
-
-	// Displaying matB
-	cout << endl << "Matrix B" << endl;
-	for (int i = 0; i < MAX; i++) {
-		for (int j = 0; j < 1; j++)
-			cout << matB[i][j] << " ";
-		cout << endl;
-	}
+	// cout << endl << "Matrix A" << endl;
+	// for (int i = 0; i < MAX; i++) {
+	// 	for (int j = 0; j < MAX; j++)
+	// 		cout << matA[i][j] << " ";
+	// 	cout << endl;
+	// }
+	//
+	// // Displaying matB
+	// cout << endl << "Matrix B" << endl;
+	// for (int i = 0; i < MAX; i++) {
+	// 	for (int j = 0; j < 1; j++)
+	// 		cout << matB[i][j] << " ";
+	// 	cout << endl;
+	// }
 
 	// declaring threads array
 	pthread_t threads[MAX_THREAD];
+
+  clock_t begin = clock();
 
 	// Creating threads, each evaluating its own part
 	for (int i = 0; i < MAX_THREAD; i++) {
@@ -72,6 +73,9 @@ int main()
 	for (int i = 0; i < MAX_THREAD; i++)
 		pthread_join(threads[i], NULL);
 
+ 	clock_t end = clock();
+  double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+
 	// Displaying the result matrix
 	cout << endl << "Multiplication of A and B" << endl;
 	for (int i = 0; i < MAX; i++) {
@@ -79,5 +83,7 @@ int main()
 			cout << matC[i][j] << " ";
 		cout << endl;
 	}
+
+	cout << "Elapsed time (ms): " << elapsed_secs * 1000;
 	return 0;
 }
