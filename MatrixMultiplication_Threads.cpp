@@ -12,11 +12,12 @@ int matA[MAX][MAX];
 int matB[MAX][1];
 int matC[MAX][1];
 int row_no = 0;
+int thread_no = 0;
 
 void* multi(void* arg)
 {
 	// int i = row_no++; // row_no is currently processed row of matC
-
+	int thrd_no = thread_no++;
 	for(int j = 0; j < (MAX/MAX_THREAD); j++){
 		int i = row_no++; // row_no is currently processed row of matC
 
@@ -25,7 +26,7 @@ void* multi(void* arg)
 			matC[i][0] += matA[i][k] * matB[k][0];
 			// cout << "matC[" << j << "][0] = "	<< matC[j][0] << endl;
 		}
-		cout << "matC[" << i << "][0] = "	<< matC[i][0] << endl;
+		cout << "thread no: "<< thrd_no << " matC[" << i << "][0] = "	<< matC[i][0] << endl;
 	}
 }
 
