@@ -6,7 +6,7 @@ using namespace std;
 #define MAX 32
 
 // Number of threads
-#define MAX_THREAD 5
+#define MAX_THREAD 8
 
 int matA[MAX][MAX];
 int matB[MAX][1];
@@ -15,14 +15,18 @@ int row_no = 0;
 
 void* multi(void* arg)
 {
-	int i = row_no++; // row_no is currently processed row of matC
+	// int i = row_no++; // row_no is currently processed row of matC
 
-	for (int k = 0; k < MAX; k++){
-		// cout << "matA[j][k] " << matA[j][k]<< " matB[k][0] " << matB[k][0] << endl;
-		matC[i][0] += matA[j][k] * matB[k][0];
-		// cout << "matC[" << j << "][0] = "	<< matC[j][0] << endl;
+	for(int j = 0; j < (MAX/MAX_THREAD); j++){
+		int i = row_no++; // row_no is currently processed row of matC
+
+		for (int k = 0; k < MAX; k++){
+			// cout << "matA[j][k] " << matA[j][k]<< " matB[k][0] " << matB[k][0] << endl;
+			matC[i][0] += matA[i][k] * matB[k][0];
+			// cout << "matC[" << j << "][0] = "	<< matC[j][0] << endl;
+		}
+		cout << "matC[" << i << "][0] = "	<< matC[i][0] << endl;
 	}
-	cout << "matC[" << j << "][0] = "	<< matC[j][0] << endl;
 }
 
 // Driver Code
