@@ -6,7 +6,7 @@ using namespace std;
 #define MAX 32
 
 // Number of threads
-#define MAX_THREAD 8
+#define MAX_THREAD 32
 
 int matA[MAX][MAX];
 int matB[MAX][1];
@@ -19,7 +19,6 @@ void* multi(void* arg)
 	int thrd_no = thread_no++;
 	for (int j = 0; j < (MAX/MAX_THREAD); j++){
 		for (int k = 0; k < MAX; k++){
-			// cout << "matA[" << thrd_no * MAX/MAX_THREAD + j << "]["<< k << "] " << matA[thrd_no * MAX/MAX_THREAD + j][k]<< " matB[" << k <<"][0] " << matB[k][0] << endl;
 			matC[thrd_no * MAX/MAX_THREAD + j][0] += matA[thrd_no * MAX/MAX_THREAD + j][k] * matB[k][0];
 		}
 		cout << "thread no: "<< thrd_no << " matC[" << thrd_no * MAX/MAX_THREAD + j << "][0] = "	<< matC[thrd_no * MAX/MAX_THREAD + j][0] << endl;
