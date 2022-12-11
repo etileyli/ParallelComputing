@@ -10,7 +10,7 @@ void one_by_one();
 
 //globals
 int **a;
-int numssss;
+int num;
 int num_paths;
 int *shortest_path;
 int shortest_dist;
