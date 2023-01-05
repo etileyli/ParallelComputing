@@ -1,3 +1,5 @@
+/* The code adapted from :https://github.com/codeknight3/ME766_Project */
+
 #include<bits/stdc++.h>
 #include <ctime>
 #include <chrono>
@@ -177,7 +179,7 @@ int main(int argc, char *argv[])
   for (int i = 0; i < 500; i++){
     ans = tsp_omp(matrix);
   }
-  
+
   auto finish = std::chrono::high_resolution_clock::now();	        // end time
 
   // printing the minimum path cost
@@ -186,5 +188,9 @@ int main(int argc, char *argv[])
 
 	// printing the run-time
 	chrono::duration<double> elapsed = (finish - start)/500;
-	cout << fixed << setprecision(5) <<elapsed.count() << endl;
+  cout << "Time elapsed for " << N << " cities " << threads << " threads:\t";
+	cout << fixed << setprecision(6) <<elapsed.count() << endl;
+  // printing the minimum path cost
+  //cout<<find_path_cost(matrix,ans)<<endl;
+  //cout<<endl;
 }
